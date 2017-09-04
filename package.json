@@ -1,9 +1,12 @@
 {
-  "name": "ArkeaBot",
-  "version": "1.0.0",
+  "name": "arkea-bot",
+  "version": "1.0.1",
   "description": "Epic food bot",
   "main": "Bot.js",
-  "author": "Nibs",
+  "author": {
+    "Nibs",
+    "Dingodhole"
+  }
   "dependencies": {
     "async": "^2.5.0",
     "discord.io": "^2.5.2",
