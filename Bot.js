@@ -1,3 +1,4 @@
+//Requirements
 var Discord = require('discord.io');
 var auth = require('./auth.json');
 var responses = require('./responses.json');
@@ -6,11 +7,13 @@ require('isomorphic-fetch');
 
 var schedule = require('node-schedule');
 
+//Creates discord client for bot user
 var bot = new Discord.Client({
    token: auth.token,
    autorun: true
 });
 
+//List of month names (perhaps move to own json file)
 var monthNames = [
     "Tammikuuta", "Helmikuuta", "Maaliskuuta",
     "Huhtikuuta", "Toukokuuta", "Kesäkuuta", "Heinäkuuta",
@@ -18,7 +21,7 @@ var monthNames = [
     "Marraskuuta", "Joulukuuta"
   ];
 
-
+//Schedules, updates every day at 8:15AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
 var j = schedule.scheduleJob('15 8 * * *', function(){
 	var d = new Date();
 	var n = d.getDay()-1;
@@ -66,52 +69,54 @@ var j = schedule.scheduleJob('15 8 * * *', function(){
 		console.log('Ruokalista toimitettu');
 	});
  
-  
+//Informs successful login to the console
 bot.on('ready', function (evt) {
     console.log('Connected');
     console.log('Logged in as: ');
     console.log(bot.username + ' - (' + bot.id + ')');
 });
 
+//How bot will act on incoming messages.
 bot.on('message', function (user, userID, channelID, message, evt) {
     
     if (message.substring(0, 1) == settings.prefix) {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 		msg = message;
-       
+       //List of awailable commands
         switch(cmd) {
-			case 'shutdown':
-				if (userID == auth.sysadmin) {
-					var message = "Authorized as " + user + "\nLogging events\nShutting down client";
-					bot.sendMessage({
-						to: channelID,
-						message: message
-					});
-				} else {
-					bot.sendMessage({
-						to: channelID,
-						message: responses.fauth
-					});
-				}
-				break;
-			
-			case 'kek':
-				if (userID == auth.sysadmin) {
-					var message = "Hello, " + user + "!";
-					bot.sendMessage({
-						to: channelID,
-						message: message
-					});
+		//WIP, ables graceful shutdown of the program
+		case 'shutdown':
+			if (userID == auth.sysadmin) {
+				var message = "Authorized as " + user + "\nLogging events\nShutting down client";
+				bot.sendMessage({
+					to: channelID,
+					message: message
+				});
+			} else {
+				bot.sendMessage({
+					to: channelID,
+					message: responses.fauth
+				});
+			}
+			break;
+		//Random command, mainly for test purposes
+		case 'kek':
+			if (userID == auth.sysadmin) {
+				var message = "Hello, " + user + "!";
+				bot.sendMessage({
+					to: channelID,
+					message: message
+				});
 
-				} else {
-					bot.sendMessage({
-						to: channelID,
-						message: 'No can do'
-					});
-				}
-				break;
-			
+			} else {
+				bot.sendMessage({
+					to: channelID,
+					message: 'No can do'
+				});
+			}
+			break;
+		//Another command used for test purposes	
             case 'ping':
                 bot.sendMessage({
                     to: channelID,
@@ -139,7 +144,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: 'Write "&menu [viikonpäivä]"'
                 });
                 break;
-
+	//Main command for seeking x day's menu
             case 'menu':
                 var number = 20;
 
