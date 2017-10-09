@@ -1,17 +1,11 @@
 //Requirements
 const Discord = require('discord.js');
 const config = require("./config.json");
+const functions = require("./Functions.js");
 const responses = require('./responses.json');
-
-require('isomorphic-fetch');
 const schedule = require('node-schedule');
 
-const monthNames = [
-    "Tammikuuta", "Helmikuuta", "Maaliskuuta",
-    "Huhtikuuta", "Toukokuuta", "Kesäkuuta", "Heinäkuuta",
-    "Elokuuta", "Syyskuuta", "Lokakuuta",
-    "Marraskuuta", "Joulukuuta"
-  ];
+
 const bot = new Discord.Client();
 bot.login(config.token)
 .catch((e) => {
@@ -27,10 +21,10 @@ bot.on('ready', () => {
 );
 
 //Schedules, updates every day at 7:00AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
-//   var j = schedule.scheduleJob('* * * * * *', function(){
-//  	let channel = bot.quilds.get("346637688646008843").channels.get("359247891958726656");
-//  	getMenu(returnThisDay(), channel);
-// });
+var j = schedule.scheduleJob('* * * * * *', function(){
+ 	//let channel = bot.guilds.get("346637688646008843").channels.get("359247891958726656");
+ 	//functions.getMenu(functions.returnThisDay(), channel);
+});
 
 //How bot will act on incoming messages.
 bot.on('message', function (message) {
@@ -111,7 +105,7 @@ bot.on('message', function (message) {
 
 
                 if (number < 5 && number >= 0){
-                    getMenu(number, message.channel);
+                    functions.getMenu(number, message.channel);
                 } else {
                     message.channel.send("Nou kän du. Try valid day")
                 }
@@ -121,67 +115,3 @@ bot.on('message', function (message) {
      }
 });
 
-function getMenu(n, channel) {
-	fetch('https://www.arkea.fi/fi/ruokalista/43/lista')
-  	.then(function(response) {
-    	if (response.status >= 400) {
-      	channel.send("Network error occured! I probably just crashed and went offline :( Fuck arkea servers");
-			}
-       return response.json();
-    })
-    .then(function(menu) {
-    	var month = parseInt(menu.MenusForDays[n].Date.substring(5,7));
-      var day = parseInt(menu.MenusForDays[n].Date.substring(8,10));
-      var date = day.toString() + '. ' + monthNames[month-1];
-
-    	var mainMeal = "```\n"
-      if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Lounas")) {
-
-      	for (let item in menu.MenusForDays[n].SetMenus.Lounas.Components.Dish) {
-        	if (menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item] != "Uunimakkara (M, L, G, K)")
-        		mainMeal += menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item].split('(')[0] + "  \n";
-          else
-          	mainMeal += "   UUUUUUUUUUUUUUUNIMAKKKARAAAAAAAAAAAA BOIIIIIIIIIIIIIIII YEAHHHHHHHHHHHH BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII \n";
-        }
-			}
-			mainMeal += "```";
-
-    	var secondMeal = " ```\n"
-			if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Kasvislounas")) {
-
-        for (let item in menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish) {
-          secondMeal += menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish[item].split('(')[0] + "  \n";
-        }
-    	}
-
-    	secondMeal += "```";
-
-    	channel.send({
-        embed: {
-          "color": 2134768,
-          "timestamp": new Date(),
-          "footer": {
-          "icon_url": "https://pbs.twimg.com/profile_images/441542471760097280/9sDmsLIm_400x400.jpeg",
-          "text": "© N Production. Hosted by Gaz"
-          },
-          "fields": [
-          {
-            "name": "Lounas:",
-            "value": mainMeal,
-            "inline": true
-          },
-          {
-            "name": "Kasvislounas:",
-            "value": secondMeal,
-            "inline": true
-          }
-          ]
-        }
-      });
-    });
-}
-
-function returnThisDay() {
-	var d = new Date();
-	return d.getDay()-1;
-}
