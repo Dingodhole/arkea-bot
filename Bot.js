@@ -1,167 +1,91 @@
 //Requirements
-var Discord = require('discord.io');
-var auth = require('./auth.json');
-var responses = require('./responses.json');
-var settings = require('./settings.json');
+const Discord = require('discord.js');
+const config = require("./config.json");
+const responses = require('./responses.json');
+
 require('isomorphic-fetch');
+const schedule = require('node-schedule');
 
-var schedule = require('node-schedule');
-
-//Creates discord client for bot user
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
-});
-
-//List of month names (perhaps move to own json file)
-var monthNames = [
+const monthNames = [
     "Tammikuuta", "Helmikuuta", "Maaliskuuta",
     "Huhtikuuta", "Toukokuuta", "Kesäkuuta", "Heinäkuuta",
     "Elokuuta", "Syyskuuta", "Lokakuuta",
     "Marraskuuta", "Joulukuuta"
   ];
+const bot = new Discord.Client();
+bot.login(config.token)
+.catch((e) => {
+  console.log(e);
+})
 
-
-//Get the menu from arkea site
-function getMenu(n) {
-	fetch('https://www.arkea.fi/fi/ruokalista/43/lista')
-  	.then(function(response) {
-    	if (response.status >= 400) {
-      	bot.sendMessage({
-        	to: channelID,
-          message: "Network error occured! I probably just crashed and went offline :( Fuck arkea servers"
-        });
-			}
-       return response.json();
-    })
-    .then(function(menu) {  
-    	var month = parseInt(menu.MenusForDays[number].Date.substring(5,7));
-      var day = parseInt(menu.MenusForDays[number].Date.substring(8,10));
-      var date = day.toString() + '. ' + monthNames[month-1] + " \n";
-
-      var message = "```css\n" + date + "Lounas: \n";
-
-      if (menu.MenusForDays[number].SetMenus.hasOwnProperty("Lounas")) {
-
-      	for (let item in menu.MenusForDays[number].SetMenus.Lounas.Components.Dish) {
-        	if (menu.MenusForDays[number].SetMenus.Lounas.Components.Dish[item] != "Uunimakkara (M, L, G, K)")
-        		message += "   " + menu.MenusForDays[number].SetMenus.Lounas.Components.Dish[item] + "\n";
-          else
-          	message += "   UUUUUUUUUUUUUUUNIMAKKKARAAAAAAAAAAAA BOIIIIIIIIIIIIIIII YEAHHHHHHHHHHHH BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII \n";
-        }
-			}
-
-			if (menu.MenusForDays[number].SetMenus.hasOwnProperty("Kasvislounas")) {
-
-      	message += " ``` ```fix\n Kasvislounas: \n"
-
-        for (let item in menu.MenusForDays[number].SetMenus.Kasvislounas.Components.Dish) {
-          message += "   " + menu.MenusForDays[number].SetMenus.Kasvislounas.Components.Dish[item] + "\n";
-        } 
-    	}
-                            
-    	message += "```";
-
-    	bot.sendMessage({
-      	to: channelID,
-    		message: message
-  		});
-	}); 
-}
+//Informs successful login to the console
+bot.on('ready', () => {
+    console.log('Connected');
+  	console.log("Bot has started. Logged in as " + bot.user.username + ". Connected to " + bot.guilds.size + " servers");
+  	bot.user.setGame('arkea servers');
+  }
+);
 
 //Schedules, updates every day at 7:00AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
-var j = schedule.scheduleJob('7 * * *', function(){
-	var d = new Date();
-	var n = d.getDay()-1;
-	
-  getMenu(n);
-	
-	});
- 
-//Informs successful login to the console
-bot.on('ready', function (evt) {
-    console.log('Connected');
-    console.log('Logged in as: ');
-    console.log(bot.username + ' - (' + bot.id + ')');
-});
+//   var j = schedule.scheduleJob('* * * * * *', function(){
+//  	let channel = bot.quilds.get("346637688646008843").channels.get("359247891958726656");
+//  	getMenu(returnThisDay(), channel);
+// });
 
 //How bot will act on incoming messages.
-bot.on('message', function (user, userID, channelID, message, evt) {
-    
-    if (message.substring(0, 1) == settings.prefix) {
-        message = message.toLowerCase();
-        var args = message.substring(1).split(' ');
+bot.on('message', function (message) {
+    let content = message.content.toLowerCase();
+    if (content.substring(0, 1) == config.prefix) {
+        var args = content.substring(1).split(' ');
         var cmd = args[0];
-		msg = message;
-       //List of awailable commands
-        switch(cmd) {
-		//WIP, ables graceful shutdown of the program
-		case 'shutdown':
-			if (userID == auth.sysadmin) {
-				var message = "Authorized as " + user + "\nLogging events\nShutting down client";
-				bot.sendMessage({
-					to: channelID,
-					message: message
-				});
-			} else {
-				bot.sendMessage({
-					to: channelID,
-					message: responses.fauth
-				});
-			}
-			break;
-		//Random command, mainly for test purposes
-		case 'kek':
-			if (userID == auth.sysadmin) {
-				var message = "Hello, " + user + "!";
-				bot.sendMessage({
-					to: channelID,
-					message: message
-				});
-
-			} else {
-				bot.sendMessage({
-					to: channelID,
-					message: 'No can do'
-				});
-			}
-			break;
-		//Another command used for test purposes	
+       	//List of awailable commands
+      	switch(cmd) {
+            //WIP, ables graceful shutdown of the program
+            case 'shutdown':
+              if (message.user.id == config.sysadmin) {
+                message.channel.sendMessage("Authorized as " + message.user.id + "\nLogging events\nShutting down client");
+              } else {
+                message.channel.sendMessage(responses.fauth);
+              }
+              break;
+            //Random command, mainly for test purposes
+            case 'kek':
+              if (message.user.id == auth.sysadmin) {
+                message.channel.sendMessage("Hello, " + message.user.username + "!");
+              } else {
+                message.channel.sendMessage('Nou kän du!');
+              }
+              break;
+						//Other commands used for testing
             case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
+                message.channel.sendMessage('Ponk');
                 break;
 
             case 'GitGud':
-                bot.sendMessage({
-                    to: channelID,
-                    message: "Can't I'm a living god tbh"
-                });
-                break;
-
-            case 'ban':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Done (not really but you were scared right??)'
-                });
+                message.channel.sendMessage("Can't I'm living god tbh");
                 break;
 
             case 'help':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Write "&menu [viikonpäivä]"'
+                message.channel.sendMessage("Write &menu [viikon päivä]");
+                break;
+
+            case 'aikataulu':
+                message.channel.sendMessage({
+                  embed: {
+                    "color": 2134768,
+                    "description": "[here](http://www.kerttulinlukio.fi/sites/default/files/LIITETIEDOSTOT/Ruokailujen%20porrastus%202017-2018%20JAKSO%201.pdf)",
+                    "timestamp": new Date()
+                  }
                 });
                 break;
 	//Main command for seeking x day's menu
             case 'menu':
                 var number = 20;
 
-                var argNumber = args[1].toLowerCase();
+                var arg = args[1].toLowerCase();
 
                 paiva:
-                switch(argNumber) {
+                switch(arg) {
                     case 'maanantai':
                         number = 0;
                         break paiva;
@@ -169,33 +93,95 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     case 'tiistai':
                         number = 1;
                         break paiva;
-                        
+
                     case 'keskiviikko':
                         number = 2;
                         break paiva;
-                        
+
                     case 'torstai':
                         number = 3;
                         break paiva;
-                        
+
                     case 'perjantai':
                         number = 4;
                         break paiva;
 
-                    default: ;    
+                    default: ;
                 }
 
 
                 if (number < 5 && number >= 0){
-                    getMenu(number);
+                    getMenu(number, message.channel);
                 } else {
-                    bot.sendMessage({
-                        to: channelID,
-                        message: "Invalid command!"
-                    });
+                    message.channel.send("Nou kän du. Try valid day")
                 }
 
                 break;
          }
      }
 });
+
+function getMenu(n, channel) {
+	fetch('https://www.arkea.fi/fi/ruokalista/43/lista')
+  	.then(function(response) {
+    	if (response.status >= 400) {
+      	channel.send("Network error occured! I probably just crashed and went offline :( Fuck arkea servers");
+			}
+       return response.json();
+    })
+    .then(function(menu) {
+    	var month = parseInt(menu.MenusForDays[n].Date.substring(5,7));
+      var day = parseInt(menu.MenusForDays[n].Date.substring(8,10));
+      var date = day.toString() + '. ' + monthNames[month-1];
+
+    	var mainMeal = "```\n"
+      if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Lounas")) {
+
+      	for (let item in menu.MenusForDays[n].SetMenus.Lounas.Components.Dish) {
+        	if (menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item] != "Uunimakkara (M, L, G, K)")
+        		mainMeal += menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item].split('(')[0] + "  \n";
+          else
+          	mainMeal += "   UUUUUUUUUUUUUUUNIMAKKKARAAAAAAAAAAAA BOIIIIIIIIIIIIIIII YEAHHHHHHHHHHHH BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII \n";
+        }
+			}
+			mainMeal += "```";
+
+    	var secondMeal = " ```\n"
+			if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Kasvislounas")) {
+
+        for (let item in menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish) {
+          secondMeal += menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish[item].split('(')[0] + "  \n";
+        }
+    	}
+
+    	secondMeal += "```";
+
+    	channel.send({
+        embed: {
+          "color": 2134768,
+          "timestamp": new Date(),
+          "footer": {
+          "icon_url": "https://pbs.twimg.com/profile_images/441542471760097280/9sDmsLIm_400x400.jpeg",
+          "text": "© N Production. Hosted by Gaz"
+          },
+          "fields": [
+          {
+            "name": "Lounas:",
+            "value": mainMeal,
+            "inline": true
+          },
+          {
+            "name": "Kasvislounas:",
+            "value": secondMeal,
+            "inline": true
+          }
+          ]
+        }
+      });
+    });
+}
+
+function returnThisDay() {
+	var d = new Date();
+	return d.getDay()-1;
+}
