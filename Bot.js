@@ -16,14 +16,14 @@ bot.login(config.token)
 bot.on('ready', () => {
     console.log('Connected');
   	console.log("Bot has started. Logged in as " + bot.user.username + ". Connected to " + bot.guilds.size + " servers");
-  	bot.user.setGame('arkea servers');
+  	bot.user.setGame(config.currentGame);
   }
 );
 
 //Schedules, updates every day at 7:00AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
-var j = schedule.scheduleJob('* * * * * *', function(){
- 	//let channel = bot.guilds.get("346637688646008843").channels.get("359247891958726656");
- 	//functions.getMenu(functions.returnThisDay(), channel);
+var j = schedule.scheduleJob('0 7 * * *', function(){
+ 	let channel = bot.guilds.get(config.guildID).channels.get(config.menuChannelID);
+ 	functions.getMenu(functions.returnThisDay(), channel);
 });
 
 //How bot will act on incoming messages.
@@ -36,8 +36,8 @@ bot.on('message', function (message) {
       	switch(cmd) {
             //WIP, ables graceful shutdown of the program
             case 'shutdown':
-              if (message.user.id == config.sysadmin) {
-                message.channel.sendMessage("Authorized as " + message.user.id + "\nLogging events\nShutting down client");
+              if (message.author.id == config.sysadmin) {
+                message.channel.sendMessage("Authorized as " + message.author.id + "\nLogging events\nShutting down client");
               } else {
                 message.channel.sendMessage(responses.fauth);
               }
