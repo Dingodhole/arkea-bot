@@ -80,7 +80,7 @@ bot.on('message', function (message) {
 				}
 				
 				catch(err) {
-					console.log("<" + message.user.username + "> | Failed to user command");
+					console.log("<" + message.author.id + "> | Failed to user command");
 					message.channel.sendMessage("No can do! Laitas sitä päivän nimeä sinne perään...");	
 				}
 
