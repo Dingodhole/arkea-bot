@@ -75,8 +75,14 @@ bot.on('message', function (message) {
 	//Main command for seeking x day's menu
             case 'menu':
                 var number = 20;
-
-                var arg = args[1].toLowerCase();
+				try {
+                	var arg = args[1].toLowerCase();
+				}
+				
+				catch(err) {
+					console.log("<" + message.user.username + "> | Failed to user command");
+					message.channel.sendMessage("No can do! Laitas sitä päivän nimeä sinne perään...");	
+				}
 
                 paiva:
                 switch(arg) {
