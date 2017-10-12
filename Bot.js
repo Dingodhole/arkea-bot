@@ -74,50 +74,57 @@ bot.on('message', function (message) {
                 break;
 	//Main command for seeking x day's menu
             case 'menu':
-                var number = 20;
 				try {
-                	var arg = args[1].toLowerCase();
+					var number = 20;
+					try {
+						var arg = args[1].toLowerCase();
+					}
+					
+					catch(err) {
+						console.log("<" + message.author.id + "> | Failed to user command");
+						message.channel.sendMessage("No can do! Laitas sitä päivän nimeä sinne perään...");	
+					}
+
+					paiva:
+					switch(arg) {
+						case 'maanantai':
+							number = 0;
+							break paiva;
+
+						case 'tiistai':
+							number = 1;
+							break paiva;
+
+						case 'keskiviikko':
+							number = 2;
+							break paiva;
+
+						case 'torstai':
+							number = 3;
+							break paiva;
+
+						case 'perjantai':
+							number = 4;
+							break paiva;
+
+						default: ;
+					}
+
+
+					if (number < 5 && number >= 0){
+						functions.getMenu(number, message.channel);
+					} else {
+						message.channel.send("Nou kän du. Try valid day")
+					}
+
+					break;					
+					
 				}
 				
 				catch(err) {
-					console.log("<" + message.author.id + "> | Failed to user command");
+					console.log("<" + message.author.id + "> | " + err);
 					message.channel.sendMessage("No can do! Laitas sitä päivän nimeä sinne perään...");	
 				}
-
-                paiva:
-                switch(arg) {
-                    case 'maanantai':
-                        number = 0;
-                        break paiva;
-
-                    case 'tiistai':
-                        number = 1;
-                        break paiva;
-
-                    case 'keskiviikko':
-                        number = 2;
-                        break paiva;
-
-                    case 'torstai':
-                        number = 3;
-                        break paiva;
-
-                    case 'perjantai':
-                        number = 4;
-                        break paiva;
-
-                    default: ;
-                }
-
-
-                if (number < 5 && number >= 0){
-                    functions.getMenu(number, message.channel);
-                } else {
-                    message.channel.send("Nou kän du. Try valid day")
-                }
-
-                break;
          }
      }
 });
-
