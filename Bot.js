@@ -128,3 +128,10 @@ bot.on('message', function (message) {
          }
      }
 });
+
+//To "star" message when star reaction is added
+bot.on('messageReactionAdd', function(reaction, user) {
+  if (reaction.emoji == "⭐" && reaction.message.guild)
+    functions.saveMessage(user, reaction)
+});
+
