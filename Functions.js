@@ -70,5 +70,23 @@ module.exports  = {
   returnThisDay: function() {
   	var d = new Date();
   	return d.getDay()-1;
+  },
+
+  saveMessage: function(author, reaction) {
+    author.send({
+      embed: {
+        "color": 0x5a5a5a,
+        "timestamp": new Date(),
+        "fields": [
+        {
+          "name": author.username + " in " + reaction.message.guild + ", #" + reaction.message.channel.name,
+          "value": reaction.message.content
+        }
+        ]
+      }
+    });
+    reaction.remove(author).catch((e) => {
+      reaction.message.channel.send("Can't delete reaction. " + e);
+    })
   }
 }
