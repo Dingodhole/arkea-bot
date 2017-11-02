@@ -79,7 +79,7 @@ module.exports  = {
         "timestamp": new Date(),
         "fields": [
         {
-          "name": author.username + " in " + reaction.message.guild + ", #" + reaction.message.channel.name,
+          "name": reaction.message.author.username + " in " + reaction.message.guild + ", #" + reaction.message.channel.name,
           "value": reaction.message.content
         }
         ]
