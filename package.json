@@ -1,0 +1,16 @@
+{
+  "name": "arkea-bot",
+  "version": "1.0.1",
+  "description": "Epic food bot",
+  "main": "Bot.js",
+  "author": {
+    "Nibs",
+    "Dingodhole"
+  }
+  "dependencies": {
+    "async": "^2.5.0",
+    "discord.io": "^2.5.2",
+    "es6-promise": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
