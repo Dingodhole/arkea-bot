@@ -15,15 +15,6 @@ module.exports = {
 	getMenu: function(UrlJSON, day, channel, callback) {
 		var MainMeal = "";
 		var SecondMeal = "";
-		var LocInArray;
-		/*
-		var d = new Date();
-		
-		var day = d.getDate();
-		var month = d.getMonth()+1;
-		var year = d.getFullYear();
-
-		var Today = (year + "-" + month + "-" + day + "T00:00:00");*/
 		
 		fetch(UrlJSON)
 			.then(function(response) {
@@ -35,19 +26,16 @@ module.exports = {
 			.then(function(data) {
 				for(let i = 0, l = data.Days.length; i < l; i++) {
 					if (data.Days[i].Date === day) {
-						LocInArray = i;
+						var cut = data.Days[i].Meals;
+						
+						//Main meal
+						MainMeal += cut[0].Name + "\n";
+						
+						//Vegetarian
+						SecondMeal += cut[1].Name + "\n";
 					}
 				}
-				
-				var cut = data.Days[LocInArray].Meals
-				
-				//MainMenu += cut[0].MealType + "\n";
-				MainMeal += cut[0].Name + "\n";
-				//SecondMenu += cut[1].MealType + "\n";
-				SecondMeal += cut[1].Name + "\n";
-
-				callback(BuiltMenu);
-				
+							
 				channel.send({
 					embed: {
 						"color": 2134768,
@@ -147,24 +135,3 @@ module.exports = {
 			});
 	}	
 }
-
-
-//--------------------------------------------------------------
-var d = new Date();
-var month = d.getMonth()+1;
-var year = d.getFullYear();
-var day = d.getDate();
-
-var DD = (year + "-" + month + "-" + day + "T00:00:00");
-//var DF = new Date(DD);
-//console.log(DF);
-//console.log(DD);
-
-
-SetCWeekMenuURL("79be4e48-b6ad-e711-a207-005056820ad4", function(result) {
-	getMenu(result, DD, function(menu) {
-		console.log(menu);
-	});
-	//console.log(result);
-});
-//---------------------------------------------------------------
