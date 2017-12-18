@@ -1,92 +1,170 @@
 require('isomorphic-fetch');
 
-const monthNames = [
-    "Tammikuuta", "Helmikuuta", "Maaliskuuta",
-    "Huhtikuuta", "Toukokuuta", "Kesäkuuta", "Heinäkuuta",
-    "Elokuuta", "Syyskuuta", "Lokakuuta",
-    "Marraskuuta", "Joulukuuta"
-  ];
+module.exports = {
+	returnThisDay: function() {
+		var d = new Date();
+		var month = d.getMonth()+1;
+		var year = d.getFullYear();
+		var day = d.getDate();
 
-module.exports  = {
-  getMenu: function (n, channel) {
-  	fetch('https://www.arkea.fi/fi/ruokalista/43/lista')
-    	.then(function(response) {
-      	if (response.status >= 400) {
-        	channel.send("Network error occured! I probably just crashed and went offline :( Fuck arkea servers");
-  			}
-         return response.json();
-      })
-      .then(function(menu) {
-      	var month = parseInt(menu.MenusForDays[n].Date.substring(5,7));
-        var day = parseInt(menu.MenusForDays[n].Date.substring(8,10));
-        var date = day.toString() + '. ' + monthNames[month-1];
+		var Today = (year + "-" + month + "-" + day + "T00:00:00");
+		
+		return Today;
+	},
+	
+	getMenu: function(UrlJSON, day, channel, callback) {
+		var MainMeal = "";
+		var SecondMeal = "";
+		var LocInArray;
+		/*
+		var d = new Date();
+		
+		var day = d.getDate();
+		var month = d.getMonth()+1;
+		var year = d.getFullYear();
 
-      	var mainMeal = "```\n"
-        if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Lounas")) {
+		var Today = (year + "-" + month + "-" + day + "T00:00:00");*/
+		
+		fetch(UrlJSON)
+			.then(function(response) {
+				if (response.status >= 400) {
+					throw new Error("Bad response from server");
+				}
+				return response.json();
+			})
+			.then(function(data) {
+				for(let i = 0, l = data.Days.length; i < l; i++) {
+					if (data.Days[i].Date === day) {
+						LocInArray = i;
+					}
+				}
+				
+				var cut = data.Days[LocInArray].Meals
+				
+				//MainMenu += cut[0].MealType + "\n";
+				MainMeal += cut[0].Name + "\n";
+				//SecondMenu += cut[1].MealType + "\n";
+				SecondMeal += cut[1].Name + "\n";
 
-        	for (let item in menu.MenusForDays[n].SetMenus.Lounas.Components.Dish) {
-          	if (menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item] != "Uunimakkara (M, L, G, K)")
-          		mainMeal += menu.MenusForDays[n].SetMenus.Lounas.Components.Dish[item].split('(')[0] + "  \n";
-            else
-            	mainMeal += "   UUUUUUUUUUUUUUUNIMAKKKARAAAAAAAAAAAA BOIIIIIIIIIIIIIIII YEAHHHHHHHHHHHH BOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII \n";
-          }
-  			}
-  			mainMeal += "```";
+				callback(BuiltMenu);
+				
+				channel.send({
+					embed: {
+						"color": 2134768,
+						"timestamp": new Date(),
+						"footer": {
+						"icon_url": "https://pbs.twimg.com/profile_images/441542471760097280/9sDmsLIm_400x400.jpeg",
+						"text": "© N Production. Hosted by Gaz"
+						},
+						"fields": [
+						{
+							"name": "Lounas:",
+							"value": MainMeal,
+							"inline": true
+					},
+					{
+					  "name": "Kasvislounas:",
+					  "value": SecondMeal,
+					  "inline": true
+					}
+					]
+				  }
+				});
+				
+			});	
+	},
 
-      	var secondMeal = " ```\n"
-  			if (menu.MenusForDays[n].SetMenus.hasOwnProperty("Kasvislounas")){
-          for (let item in menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish) {
-            secondMeal += menu.MenusForDays[n].SetMenus.Kasvislounas.Components.Dish[item].split('(')[0] + "  \n";
-          }
-      	}
 
-      	secondMeal += "```";
+	//This function returns correct JSON file for corresponding week. Requires valid RestaurantId. Should be used only with scheduling to avoid unnecessary resource usage. 
+	SetCWeekMenuURL: function(RestaurantID, callback) {
+		//Some essential local variables to make my day easier, don't complain
+		var JMenus; 				//undefined, defined after finding valid ID
+		var LinkJSON; 				//undefined, defined after finding correct week
+		
+		//Initializing local variables for finding right week
+		var Today = new Date(); 	//set today
+		var Start; 					//undefined, start date
+		var End; 					//undefined, end date
+		
+		var Error;					//undefined, error variable
+		
+		fetch('https://ruokalistatkoulutjapaivakodit.arkea.fi/AromiStorage/blob/main/AromiMenusJsonData')
+			.then(function(response) {
+				if (response.status >= 400) {
+					throw new Error("Bad response from server");
+				}
+				return response.json();
+			})
+			.then(function(data) {
+				//Run through array
+				for(let i = 0, l = data.Restaurants.length; i < l; i++) {
+					//Try to find array int for given RestaurantID for further use.
+					if(data['Restaurants'][i]['RestaurantId'] === RestaurantID) {
+						JMenus = data['Restaurants'][i]['JMenus'];
+						
+						/* //Commented out to give more freedom when checking invalid RestaurantID
+						for(let i = 0, l = JMenus.length; i < l; i++) {
+							Start = new Date(JMenus[i].Start);
+							End = new Date(JMenus[i].End);
+							if(Today > Start && Today < End === true) {
+								LinkJSON = (JMenus[i]['LinkUrl']);
+								//console.log(LinkJSON);
+								callback(LinkJSON);
+							}				 
+						}
+						*/
+						
+						break;
+					}
+				}
 
-      	channel.send({
-          embed: {
-            "color": 2134768,
-            "timestamp": new Date(),
-            "footer": {
-            "icon_url": "https://pbs.twimg.com/profile_images/441542471760097280/9sDmsLIm_400x400.jpeg",
-            "text": "© N Production. Hosted by Gaz"
-            },
-            "fields": [
-            {
-              "name": "Lounas:",
-              "value": mainMeal,
-              "inline": true
-            },
-            {
-              "name": "Kasvislounas:",
-              "value": secondMeal,
-              "inline": true
-            }
-            ]
-          }
-        });
-      });
-  },
-
-  returnThisDay: function() {
-  	var d = new Date();
-  	return d.getDay()-1;
-  },
-
-  saveMessage: function(author, reaction) {
-    author.send({
-      embed: {
-        "color": 0x5a5a5a,
-        "timestamp": new Date(),
-        "fields": [
-        {
-          "name": reaction.message.author.username + " in " + reaction.message.guild + ", #" + reaction.message.channel.name,
-          "value": reaction.message.content
-        }
-        ]
-      }
-    });
-    reaction.remove(author).catch((e) => {
-      reaction.message.channel.send("Can't delete reaction. " + e);
-    })
-  }
+				//Check if JMenus is empty = undefined, most likely RestaurantID is invalid
+				if(JMenus !== undefined && JMenus.length) {
+					for(let i = 0, l = JMenus.length; i < l; i++) {
+						Start = new Date(JMenus[i].Start);
+						End = new Date(JMenus[i].End);
+						if(Today > Start && Today < End === true) {
+							LinkJSON = (JMenus[i]['LinkUrl']);
+							//console.log(LinkJSON);
+							callback(LinkJSON);
+						}				 
+					}
+				}
+				
+				//Checks if JMenus is undefined. If it's undefined, then most likely RestaurantID is invalid.
+				else if (JMenus === undefined) {
+					Error = "Please enter valid ID";
+					//console.log(Error);
+					callback(Error);
+				}
+				
+				//To those random unknown errors.
+				else {
+					Error = "Unknown error occured, please contact system administrator";
+					//console.log(Error);
+					callback(Error);
+				}
+			});
+	}	
 }
+
+
+//--------------------------------------------------------------
+var d = new Date();
+var month = d.getMonth()+1;
+var year = d.getFullYear();
+var day = d.getDate();
+
+var DD = (year + "-" + month + "-" + day + "T00:00:00");
+//var DF = new Date(DD);
+//console.log(DF);
+//console.log(DD);
+
+
+SetCWeekMenuURL("79be4e48-b6ad-e711-a207-005056820ad4", function(result) {
+	getMenu(result, DD, function(menu) {
+		console.log(menu);
+	});
+	//console.log(result);
+});
+//---------------------------------------------------------------
