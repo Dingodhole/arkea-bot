@@ -23,7 +23,7 @@ module.exports = {
 			}
 		});
 		reaction.remove(author).catch((e) => {
-			reaction.message.channel.send("Can't delete reaction. " + e);
+			console.log("Cannot remove reaction: " + e);
 		})
 	}
 }
