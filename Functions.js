@@ -1,17 +1,6 @@
 require('isomorphic-fetch');
 
 module.exports = {
-	returnThisDay: function() {
-		var d = new Date();
-		var month = d.getMonth()+1;
-		var year = d.getFullYear();
-		var day = d.getDate();
-
-		var Today = (year + "-" + month + "-" + day + "T00:00:00");
-		
-		return Today;
-	},
-	
 	getMenu: function(UrlJSON, day, channel, callback) {
 		var MainMeal = "";
 		var SecondMeal = "";
@@ -106,7 +95,7 @@ module.exports = {
 					}
 				}
 
-				//Check if JMenus is empty = undefined, most likely RestaurantID is invalid
+				//Check if JMenus is undefined. If false, then callback json link.
 				if(JMenus !== undefined && JMenus.length) {
 					for(let i = 0, l = JMenus.length; i < l; i++) {
 						Start = new Date(JMenus[i].Start);
