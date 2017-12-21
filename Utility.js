@@ -24,6 +24,6 @@ module.exports = {
 		});
 		reaction.remove(author).catch((e) => {
 			console.log("Cannot remove reaction: " + e);
-		})
+		});
 	}
 }
