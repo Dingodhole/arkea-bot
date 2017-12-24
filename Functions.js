@@ -59,7 +59,7 @@ module.exports = {
 		var LinkJSON; 				//undefined, defined after finding correct week
 		
 		//Initializing local variables for finding right week
-		var Today = new Date(); 	//set today
+		var Today = new Date(); 	//in future this should be move to SetCWeekMenuURL: function(RestaurantID, Day, callback) {
 		var Start; 					//undefined, start date
 		var End; 					//undefined, end date
 		
