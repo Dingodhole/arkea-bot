@@ -1,2 +1,2 @@
-# Arkea Bot - 1.3 - WIP
-Version 1.3 of Arkea bot
+# Arkea Bot - 1.4 - ES6 - WIP
+Version 1.4 of Arkea bot
