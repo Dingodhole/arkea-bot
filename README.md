@@ -1,4 +1,4 @@
-# Arkea Bot - 1.3 - ES6
+# Arkea Bot - 1.4 - ES6 - WIP
 
 ## Getting Started
 
