@@ -4,7 +4,8 @@
   "description": "Discord Arkea bot | Discord.js libraries (discord.js.org)",
   "main": "Program.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf build/ && babel ./src/ --out-dir build/ --copy-files",
+    "start": "npm run build && node build/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,10 @@
   "dependencies": {
     "discord.js": "^11.2.1",
     "node-schedule": "^1.2.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "rimraf": "^2.6.2"
   }
 }
