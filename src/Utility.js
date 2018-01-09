@@ -1,12 +1,12 @@
 //Utility module
 
 function returnThisDay() {
-	var d = new Date();
-	var month = d.getMonth()+1;
-	var year = d.getFullYear();
-	var day = d.getDate();
+	let d = new Date();
+	let month = d.getMonth()+1;
+	let year = d.getFullYear();
+	let day = d.getDate();
 
-	var Today = (year + "-" + month + "-" + day + "T00:00:00");
+	let Today = (year + "-" + month + "-" + day + "T00:00:00");
 
 	return Today;
 }
@@ -38,4 +38,4 @@ function saveMessage(author, reaction) {
 	});
 }
 
-export {returnThisDay, saveMessage}
+export {returnThisDay, ConvertToISO, saveMessage}
