@@ -1,8 +1,8 @@
 {
   "name": "arkea-bot",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Discord Arkea bot | Discord.js libraries (discord.js.org)",
-  "main": "Program.js",
+  "main": "index.js",
   "scripts": {
     "build": "rimraf build/ && babel ./src/ --out-dir build/ --copy-files",
     "start": "npm run build && node build/index.js"
