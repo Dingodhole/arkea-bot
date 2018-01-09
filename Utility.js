@@ -12,6 +12,16 @@ module.exports = {
 		
 		return Today;
 	},
+	ConvertToISO: function(shortdate) {
+		let sd = shortdate.split('.');
+		let day = ("0" + sd[0]).slice(-2);
+		let month = ("0" + sd[1]).slice(-2);
+		let year = sd[2];
+		
+		let ISO8601 = (year + "-" + month + "-" + day + "T00:00:00");
+		
+		return ISO8601;
+	},
 	saveMessage: function(author, reaction) {
 		author.send({
 			embed: {
