@@ -1,2 +1,2 @@
-# Arkea Bot - 1.3 - WIP
+# Arkea Bot - 1.3
 Version 1.3 of Arkea bot
