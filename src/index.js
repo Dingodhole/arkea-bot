@@ -6,6 +6,10 @@ import {returnThisDay, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
 
+// Needed for async to work
+require("babel-core/register");
+require("babel-polyfill");
+
 const bot = new Discord.Client();
 
 bot.login(config.token)
