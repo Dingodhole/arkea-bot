@@ -35,22 +35,21 @@ let j = schedule.scheduleJob('0 7 * * *', () => {
 
 bot.on('message', (message) => {
 	let content = message.content.toLowerCase();
-  if (content.substring(0, 1) == config.prefix) {
-  let args = content.substring(1).split(' ');
+	if (content.substring(0, 1) == config.prefix) {
+		let args = content.substring(1).split(' ');
+		let cmd = args[0];
+		//List of awailable commands
+		switch(cmd) {
+			//Random command, mainly for test purposes
+			case 'test':
+				message.channel.sendMessage("Hello!");
+				break;
 
-  let cmd = args[0];
-  //List of awailable commands
-  switch(cmd) {
-  	//Random command, mainly for test purposes
-    case 'test':
-			message.channel.sendMessage("Hello!");
-			break;
-
-		//WIP under this line
-		//-------------------------------------------
-		case 'help':
-			message.channel.sendMessage("Commands:");
-			break;
+			//WIP under this line
+			//-------------------------------------------
+			case 'help':
+				message.channel.sendMessage("Commands:");
+				break;
 		}
 	}
 });
