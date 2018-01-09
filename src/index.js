@@ -38,20 +38,20 @@ bot.on('message', (message) => {
 	if (content.substring(0, 1) == config.prefix) {
 		let args = content.substring(1).split(' ');
 		let cmd = args[0];
-		
+
 		//List of awailable commands
 		switch(cmd) {
 			//Random command, mainly for test purposes
 			case 'test':
 				message.channel.sendMessage("Hello!");
 				break;
-
+        
 			//WIP
 			case 'help':
 				message.channel.sendMessage("Commands:");
 				break;
 			
-			//Wip
+			//WIP
 			case 'menu':
 				
 				break;
