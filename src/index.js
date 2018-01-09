@@ -25,12 +25,12 @@ bot.on('ready', () => {
 });
 
 //Schedules, updates every day at 7:00AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
-let j = schedule.scheduleJob('0 7 * * *', () => {
+let j = schedule.scheduleJob('0 7 * * *', async () => {
 	// Empty config.json to gitignore plsss
  	let channel = bot.guilds.get(config.guildID).channels.get(config.menuChannelID);
-	let result = SetCWeekMenuURL("79be4e48-b6ad-e711-a207-005056820ad4");
+	let result = await SetCWeekMenuURL(config.restaurantID);
 	let day = returnThisDay();
-	getMenu(result, day, channel)
+	getMenu(result, day, channel);
 });
 
 bot.on('message', (message) => {
@@ -45,15 +45,17 @@ bot.on('message', (message) => {
 			case 'test':
 				message.channel.sendMessage("Hello!");
 				break;
-        
+
 			//WIP
 			case 'help':
 				message.channel.sendMessage("Commands:");
 				break;
-			
+
 			//WIP
 			case 'menu':
-				
+				let day = ConvertToISO(args[1]);
+				let result = SetCWeekMenuURL(config.restaurantID, day);
+				getMenu(result, day, message.channel);
 				break;
 		}
 	}
