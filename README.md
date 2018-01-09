@@ -3,6 +3,9 @@
 ## Getting Started
 
 1. Clone git repo
+```
+https://github.com/Dingodhole/arkea-bot
+```
 2. Run to install depencies:
 
 ```
@@ -28,7 +31,7 @@ Just send pull request
 ## Authors
 
 * **Niilo Jaakkola** - *CEO, cleaning and code review*
-* **Lukas ??** - *Hosting and other ground work*
+* **Lukas Luotola** - *Hosting and other ground work*
 
 ## License
 
