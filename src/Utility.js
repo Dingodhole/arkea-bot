@@ -2,9 +2,10 @@
 
 function returnThisDay() {
 	let d = new Date();
-	let month = d.getMonth()+1;
+	
+	let day = ("0" + d.getDate()).slice(-2);
+	let month = ("0" + (d.getMonth() + 1)).slice(-2);
 	let year = d.getFullYear();
-	let day = d.getDate();
 
 	let Today = (year + "-" + month + "-" + day + "T00:00:00");
 
