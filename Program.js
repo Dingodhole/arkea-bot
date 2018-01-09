@@ -47,6 +47,17 @@ bot.on('message', function (message) {
 			case 'help':
 				message.channel.sendMessage("Commands:");
 				break;
+				
+			case 'menu':
+				let day = args[1];
+
+				let channel = bot.guilds.get(config.guildID).channels.get(config.menuChannelID);
+				functions.SetCWeekMenuURL("79be4e48-b6ad-e711-a207-005056820ad4", utility.ConvertToISO(day), function(result) {
+					console.log(result);
+					functions.getMenu(result, day, channel, function(menu) {
+						
+					});
+				});
 		}
 	}
 });
