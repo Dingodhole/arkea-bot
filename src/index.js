@@ -2,7 +2,7 @@
 import Discord from 'discord.js';
 import config from './config.json';
 import {getMenu, SetCWeekMenuURL} from './Functions.js';
-import {returnThisDay, saveMessage} from './Utility.js';
+import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
 
@@ -35,22 +35,26 @@ let j = schedule.scheduleJob('0 7 * * *', () => {
 
 bot.on('message', (message) => {
 	let content = message.content.toLowerCase();
-  if (content.substring(0, 1) == config.prefix) {
-  let args = content.substring(1).split(' ');
+	if (content.substring(0, 1) == config.prefix) {
+		let args = content.substring(1).split(' ');
+		let cmd = args[0];
+		
+		//List of awailable commands
+		switch(cmd) {
+			//Random command, mainly for test purposes
+			case 'test':
+				message.channel.sendMessage("Hello!");
+				break;
 
-  let cmd = args[0];
-  //List of awailable commands
-  switch(cmd) {
-  	//Random command, mainly for test purposes
-    case 'test':
-			message.channel.sendMessage("Hello!");
-			break;
-
-		//WIP under this line
-		//-------------------------------------------
-		case 'help':
-			message.channel.sendMessage("Commands:");
-			break;
+			//WIP
+			case 'help':
+				message.channel.sendMessage("Commands:");
+				break;
+			
+			//Wip
+			case 'menu':
+				
+				break;
 		}
 	}
 });
