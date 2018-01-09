@@ -1,6 +1,6 @@
 {
   "name": "arkea-bot",
-  "version": "1.4.0",
+  "version": "1.4",
   "description": "Discord Arkea bot | Discord.js libraries (discord.js.org)",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,10 @@
     "js",
     "javascript"
   ],
-  "author": "Nibs",
+  "author": [
+    "Nibs",
+    "Dingodhole",
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Dingodhole/arkea-bot/issues"
