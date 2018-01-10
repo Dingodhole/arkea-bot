@@ -2,7 +2,7 @@
 import Discord from 'discord.js';
 import config from './config.json';
 import {getMenu, SetCWeekMenuURL} from './Functions.js';
-import {returnThisDay, saveMessage} from './Utility.js';
+import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
 
@@ -25,30 +25,38 @@ bot.on('ready', () => {
 });
 
 //Schedules, updates every day at 7:00AM. Fetches JSON file from Arkea website and extracts the information. Prints corresponding information for each day.
-let j = schedule.scheduleJob('0 7 * * *', () => {
+let j = schedule.scheduleJob('0 7 * * *', async () => {
 	// Empty config.json to gitignore plsss
  	let channel = bot.guilds.get(config.guildID).channels.get(config.menuChannelID);
-	let result = SetCWeekMenuURL("79be4e48-b6ad-e711-a207-005056820ad4");
+	let result = await SetCWeekMenuURL(config.restaurantID);
 	let day = returnThisDay();
-	getMenu(result, day, channel)
+	getMenu(result, day, channel);
 });
 
-bot.on('message', (message) => {
+bot.on('message', async (message) => {
 	let content = message.content.toLowerCase();
 	if (content.substring(0, 1) == config.prefix) {
 		let args = content.substring(1).split(' ');
 		let cmd = args[0];
+
 		//List of awailable commands
 		switch(cmd) {
 			//Random command, mainly for test purposes
 			case 'test':
-				message.channel.sendMessage("Hello!");
+				message.channel.send("Hello!");
 				break;
 
-			//WIP under this line
-			//-------------------------------------------
+			//WIP
 			case 'help':
-				message.channel.sendMessage("Commands:");
+				message.channel.send("Commands:");
+				//message.channel.send(message.channel);
+				break;
+
+			//WIP
+			case 'menu':
+				let day = ConvertToISO(args[1]);
+				let result = await SetCWeekMenuURL(config.restaurantID, day);
+				await getMenu(result, day, message.channel);
 				break;
 		}
 	}

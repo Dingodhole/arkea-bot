@@ -1,14 +1,26 @@
 //Utility module
 
 function returnThisDay() {
-	var d = new Date();
-	var month = d.getMonth()+1;
-	var year = d.getFullYear();
-	var day = d.getDate();
+	let d = new Date();
 
-	var Today = (year + "-" + month + "-" + day + "T00:00:00");
+	let day = ("0" + d.getDate()).slice(-2);
+	let month = ("0" + (d.getMonth() + 1)).slice(-2);
+	let year = d.getFullYear();
+
+	let Today = (year + "-" + month + "-" + day + "T00:00:00");
 
 	return Today;
+}
+
+function ConvertToISO(shortdate) {
+	let sd = shortdate.split(/[.,/]/);
+	let day = ("0" + parseInt(sd[0]).toString()).slice(-2);
+	let month = ("0" + sd[1].toString()).slice(-2);
+	let year = sd[2];
+
+	let ISO8601 = (year + "-" + month + "-" + day + "T00:00:00");
+
+	return ISO8601;
 }
 
 function saveMessage(author, reaction) {
@@ -27,4 +39,4 @@ function saveMessage(author, reaction) {
 	});
 }
 
-export {returnThisDay, saveMessage}
+export {returnThisDay, ConvertToISO, saveMessage}
