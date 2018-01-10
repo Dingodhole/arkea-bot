@@ -22,3 +22,4 @@ node_modules/
 
 # next.js build output
 .next
+src/config.json
