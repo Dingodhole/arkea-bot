@@ -33,7 +33,7 @@ let j = schedule.scheduleJob('0 7 * * *', async () => {
 	getMenu(result, day, channel);
 });
 
-bot.on('message', (message) => {
+bot.on('message', async (message) => {
 	let content = message.content.toLowerCase();
 	if (content.substring(0, 1) == config.prefix) {
 		let args = content.substring(1).split(' ');
@@ -43,19 +43,20 @@ bot.on('message', (message) => {
 		switch(cmd) {
 			//Random command, mainly for test purposes
 			case 'test':
-				message.channel.sendMessage("Hello!");
+				message.channel.send("Hello!");
 				break;
 
 			//WIP
 			case 'help':
-				message.channel.sendMessage("Commands:");
+				message.channel.send("Commands:");
+				//message.channel.send(message.channel);
 				break;
 
 			//WIP
 			case 'menu':
 				let day = ConvertToISO(args[1]);
-				let result = SetCWeekMenuURL(config.restaurantID, day);
-				getMenu(result, day, message.channel);
+				let result = await SetCWeekMenuURL(config.restaurantID, day);
+				await getMenu(result, day, message.channel);
 				break;
 		}
 	}

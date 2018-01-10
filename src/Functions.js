@@ -50,8 +50,8 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 // This function returns correct JSON file for corresponding week. Requires valid RestaurantId. Should be used only with scheduling to avoid unnecessary resource usage.
 // Async needed for await and ...other for extra args in future
 async function SetCWeekMenuURL(RestaurantID, ...other) {
-  return new Promise(async (resolve, reject) => {
-    // URL should be moved to config file.
+	return new Promise(async (resolve, reject) => {
+  	// URL should be moved to config file.
     let data = await fetch('https://ruokalistatkoulutjapaivakodit.arkea.fi/AromiStorage/blob/main/AromiMenusJsonData')
       .then((response) => {
           if (response.status >= 400) {
@@ -66,7 +66,7 @@ async function SetCWeekMenuURL(RestaurantID, ...other) {
 		let today;
 		let date = other.find((obj) => (typeof(Date)));
 		if(date !== undefined) {
-		    today = date;
+		    today = new Date(date);
 		} else {
 		    today = new Date();
 		}
@@ -76,8 +76,8 @@ async function SetCWeekMenuURL(RestaurantID, ...other) {
           let start = new Date(obj.Start);
           let end = new Date(obj.End);
           if(today > start && today < end) {
-              let LinkJSON = obj.LinkUrl;
-              resolve(LinkJSON);
+	          let LinkJSON = obj.LinkUrl;
+	          resolve(LinkJSON);
           }
       })
     } else {
