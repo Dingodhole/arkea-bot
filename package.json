@@ -1,6 +1,6 @@
 {
   "name": "arkea-bot",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Discord Arkea bot | Discord.js libraries (discord.js.org)",
   "main": "index.js",
   "scripts": {
