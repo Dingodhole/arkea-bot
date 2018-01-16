@@ -9,6 +9,9 @@
 # production
 /build
 
+# Variables. Never commit to cloude
+/src/info.json
+
 # misc
 .DS_Store
 .env.local
