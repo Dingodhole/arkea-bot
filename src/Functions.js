@@ -12,11 +12,11 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 		})
 		.catch((e) => console.log(e))
 
-	// Find object for right day and store it to variable cut. 
-	try {	
+	// Find object for right day and store it to variable cut.
+	try {
 		let cut = data.Days.find((obj) => (obj.Date === day)).Meals;
 	}
-	catch (e => {
+	catch ((e) => {
 		continue;
 	});
 
