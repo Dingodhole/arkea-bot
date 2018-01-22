@@ -12,8 +12,13 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 		})
 		.catch((e) => console.log(e))
 
-	// Find object for right day and store it to variable cut
-	let cut = data.Days.find((obj) => (obj.Date === day)).Meals;
+	// Find object for right day and store it to variable cut. 
+	try {	
+		let cut = data.Days.find((obj) => (obj.Date === day)).Meals;
+	}
+	catch (e => {
+		continue
+	});
 
 	//Main meal
 	let MainMeal = cut[0].Name + "\n";
@@ -75,7 +80,7 @@ async function SetCWeekMenuURL(RestaurantID, ...other) {
         restaurant.JMenus.map((obj) => {
           let start = new Date(obj.Start);
           let end = new Date(obj.End);
-          if(today > start && today < end) {
+          if(today >= start && today <= end) {
 	          let LinkJSON = obj.LinkUrl;
 	          resolve(LinkJSON);
           }
