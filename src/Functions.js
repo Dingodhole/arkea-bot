@@ -16,9 +16,9 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 	try {
 		let cut = data.Days.find((obj) => (obj.Date === day)).Meals;
 	}
-	catch ((e) => {
+	catch (e) {
 		continue;
-	});
+	}
 
 	//Main meal
 	let MainMeal = cut[0].Name + "\n";
