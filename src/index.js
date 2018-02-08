@@ -6,6 +6,7 @@ import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
 import data from '../json/timetable.json';
+import mongoose from 'mongoose';
 
 // Needed for async to work
 require("babel-core/register");
