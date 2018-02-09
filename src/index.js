@@ -6,6 +6,7 @@ import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
 import data from '../json/timetable.json';
+import specialData from '../json/poikkeusTimetable.json';
 import mongoose from 'mongoose';
 
 // Needed for async to work
@@ -63,7 +64,14 @@ bot.on('message', async (message) => {
 
 			case 'time':
 				let atmClass = args[1]
-				let time = getEatingTime(atmClass, data)
+				let special = false
+				if(args[2] !== undefined && args[2] === "poikkeus")
+					special = true
+				let time = ""
+				if(special)
+					time = getEatingTime(atmClass, specialData)
+				else
+					time = getEatingTime(atmClass, data)
 				message.channel.send(time)
 		}
 	}
