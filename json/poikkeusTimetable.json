@@ -1,0 +1,51 @@
+{
+  "Maanantai": {
+    "10.30 - 10.50": "ICT5.3 MPE ,  FY06.2 JLA ,  ÄI02.7 MMO",
+    "10.50 - 11.10": "KE02.1 MSU ,  MU01.5 TKA ,  vMU1.5 TKA ,  RUA06.2 JKU",
+    "11.10 - 11.30": "RUB12.4 RAU ,  ENA03.3 HSU",
+    "11.30 - 11.50": " BI02.5 KSI ,  vBI3.5 KSI ,  HI04.2 HPA ,  vHI2.2 HPA",
+    "11.50 - 12.10": "MAA09.4 JPI ,  MAA11.2 KNY ,  vM11.2 KNY ,  ÄI06.4 MLE",
+    "12.10 - 12.30": "TE01.6 TSA ,  MAB06.1 MLU ,  vTE1.6 TSA",
+    "12.30 - 12.50": "UE02.4 STA ,  vUE2.4 STA ,  ENA06.3 AP",
+    "12.50 - 13.10": "vBI9.1 PSU"
+  },
+  "Tiistai": {
+    "10.30 - 10.50": "FY02.3 HVA ,  ICT9.1 MAL ,  IT19.1 MAL",
+    "10.50 - 11.10": "KE05.3 TPE ,  vKE5.3 TPE ,  vKU2.2 KPÄ ,  KU02.2 KPÄ",
+    "11.10 - 11.30": "TE03.3 TSA ,  vTE3.3 TSA ,  PS01.7 MVA ,  vPS1.7 MVA ,  RUA02.2 MMA",
+    "11.30 - 11.50": "HI03.5 UKO ,  vHI4.5 UKO ,  GE02.1 KSI ,  vGE1.1 KSI",
+    "11.50 - 12.10": "BI04.4 PSU ,  vBI4.4 PSU ,  FI01.5 STA ,  vFF1.5 STA ,  vA7.2 MLE ,  ÄI07.2 MLE",
+    "12.10 - 12.30": "MAA04.4 TTU ,  MAA09.3 JPI ,  MAB02.1 MLU",
+    "12.30 - 12.50": "ENA03.2 HSU ,  ENA10.3 MPA ,  vEA10.5 MPA",
+    "12.50 - 13.10": "ÄI06.3 ALI"
+  },
+  "Keskiviikko": {
+    "10.30 - 10.50": "KE07.1 MSU ,  HO03.4 EVÄ ,  ÄI03.2 MMO",
+    "10.50 - 11.10": "MU01.6 TKA ,  vMU1.6 TKA ,  FY02.4 JLA",
+    "11.10 - 11.30": "HI02.4 UKO ,  vHI3.4 UKO ,  vYH2.5 HPA ,  YH02.5 HPA",
+    "11.30 - 11.50": "ÄI06.5 MLE ,  BI01.7 KSI ,  vBI1.7 KSI ",
+    "11.50 - 12.10": "FI01.6 STA ,  vFF1.6 STA ,  vBI10.1 PSU",
+    "12.10 - 12.30": "MAA04.5 KNY ,  MAA09.5 MPE",
+    "12.30 - 12.50": "RUA02.3 RAU ,  ENA06.4 MPA ",
+    "12.50 - 13.10": "PS04.2 MVA ,  MAB06.2 MLU"
+  },
+  "Torstai": {
+    "10.30 - 10.50": "ICT5.3 MPE ,  FY06.2 JLA ,  ÄI02.7 MMO",
+    "10.50 - 11.10": "KE02.1 MSU ,  MU01.5 TKA ,  vMU1.5 TKA ,  RUA06.2 JKU",
+    "11.10 - 11.30": "RUB12.4 RAU ,  ENA03.3 HSU",
+    "11.30 - 11.50": " BI02.5 KSI ,  vBI3.5 KSI ,  HI04.2 HPA ,  vHI2.2 HPA",
+    "11.50 - 12.10": "MAA09.4 JPI ,  MAA11.2 KNY ,  vM11.2 KNY ,  ÄI06.4 MLE",
+    "12.10 - 12.30": "TE01.6 TSA ,  MAB06.1 MLU ,  vTE1.6 TSA",
+    "12.30 - 12.50": "UE02.4 STA ,  vUE2.4 STA ,  ENA06.3 AP",
+    "12.50 - 13.10": "vBI9.1 PSU"
+  },
+  "Perjantai": {
+    "10.30 - 10.50": "FY02.2 JLA ,  KE05.2 TPE ,  vKE5.2 TPE",
+    "10.50 - 11.10": "KU01.4 KPÄ ,  vKU1.4 KPÄ ,  EAB33.1 JAH ,  HI02.3 UKO ,  vHI3.3 UKO",
+    "11.10 - 11.30": "ENA03.1 MLN ,  ENA06.2 AP",
+    "11.30 - 11.50": "ENA08.2 MPA ,  vEA8.2 MPA ,  RUB16.1 MMA ,  RUA08.1 MMA ,  MAA09.2 JPI",
+    "11.50 - 12.10": "SAB21.1 HSU ,  SAB33.1 HSU ,  MAA04.3 KNY",
+    "12.10 - 12.30": "BI02.4 KSI ,  vBI3.4 KSI ,  BI04.3 PSU ,  vBI4.3 PSU ,  vYH2.6 HPA ,  YH02.6 HPA",
+    "12.30 - 12.50": "ÄI02.6 MLE ,  ÄI06.2 MMO"
+  }
+}
