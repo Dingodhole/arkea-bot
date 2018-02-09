@@ -6,13 +6,14 @@ yarn-debug.log*
 yarn-error.log*
 
 # Config file
-src/config.json 
+src/config.json
 
 # For build
 build/
 
 # Dependency directories
 node_modules/
+json/node_modules/
 
 # Optional npm cache directory
 .npm

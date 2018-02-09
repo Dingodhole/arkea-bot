@@ -1,0 +1,12 @@
+{
+  "name": "pdfreader",
+  "version": "1.0.0",
+  "description": "PDFReader to read eating times",
+  "main": "src/index.js",
+  "author": "Nipatiitti",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "pdf2json": "^1.1.7"
+  }
+}
