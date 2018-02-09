@@ -1,0 +1,32 @@
+{
+  "Maanantai": {
+    "klo 11.05 - 11.45": "ICT5.3 MPE ,  FY06.2 JLA ,  ÄI02.7 MMO, KE02.1 MSU ,  MU01.5 TKA ,  vMU1.5 TKA ,  RUA06.2 JKU",
+    "klo 11.30 - 12.10": "RUB12.4 RAU ,  ENA03.3 HSU,  BI02.5 KSI ,  vBI3.5 KSI ,  HI04.2 HPA ,  vHI2.2 HPA",
+    "klo 11.55 - 12.35": "MAA09.4 JPI ,  MAA11.2 KNY ,  vM11.2 KNY , TE01.6 TSA ,  MAB06.1 MLU ,  vTE1.6 TSA",
+    "klo 12.20 - 13.00": "UE02.4 STA ,  vUE2.4 STA ,  ENA06.3 AP, vBI9.1 PSU ,  ÄI06.4 MLE"
+  },
+  "Tiistai": {
+    "klo 11.05 - 11.45": "FY02.3 HVA ,  ICT9.1 MAL ,  IT19.1 MAL, KE05.3 TPE ,  vKE5.3 TPE ,  vKU2.2 KPÄ ,  KU02.2 KPÄ",
+    "klo 11.30 - 12.10": "TE03.3 TSA ,  vTE3.3 TSA ,  PS01.7 MVA ,  vPS1.7 MVA, HI03.5 UKO ,  vHI4.5 UKO ,  GE02.1 KSI ,  vGE1.1 KSI",
+    "klo 11.55 - 12.35": "BI04.4 PSU ,  vBI4.4 PSU ,  FI01.5 STA ,  vFF1.5 STA, MAA04.4 TTU ,  MAA09.3 JPI ,  MAB02.1 MLU",
+    "klo 12.20 - 13.00": "ENA03.2 HSU ,  ENA10.3 MPA ,  vEA10.5 MPA, RUA02.2 MMA ,  vA7.2 MLE ,  ÄI07.2 MLE ,  ÄI06.3 ALI"
+  },
+  "Keskiviikko": {
+    "klo 11.05 - 11.45": "KE07.1 MSU ,  HO03.4 EVÄ ,  ÄI03.2 MMO, MU01.6 TKA ,  vMU1.6 TKA ,  FY02.4 JLA",
+    "klo 11.30 - 12.10": "HI02.4 UKO ,  vHI3.4 UKO ,  vYH2.5 HPA ,  YH02.5 HPA, ÄI06.5 MLE ,  BI01.7 KSI ,  vBI1.7 KSI ",
+    "klo 11.55 - 12.35": "FI01.6 STA ,  vFF1.6 STA ,  vBI10.1 PSU, MAA04.5 KNY ,  MAA09.5 MPE",
+    "klo 12.20 - 13.00": "RUA02.3 RAU ,  ENA06.4 MPA , PS04.2 MVA ,  MAB06.2 MLU"
+  },
+  "Torstai": {
+    "klo 11.05 - 11.45": "ICT5.3 MPE ,  FY06.2 JLA ,  ÄI02.7 MMO, KE02.1 MSU ,  MU01.5 TKA ,  vMU1.5 TKA ,  RUA06.2 JKU",
+    "klo 11.30 - 12.10": "RUB12.4 RAU ,  ENA03.3 HSU,  BI02.5 KSI ,  vBI3.5 KSI ,  HI04.2 HPA ,  vHI2.2 HPA",
+    "klo 11.55 - 12.35": "MAA09.4 JPI ,  MAA11.2 KNY ,  vM11.2 KNY , TE01.6 TSA ,  MAB06.1 MLU ,  vTE1.6 TSA",
+    "klo 12.20 - 13.00": "UE02.4 STA ,  vUE2.4 STA ,  ENA06.3 AP, vBI9.1 PSU ,  ÄI06.4 MLE"
+  },
+  "Perjantai": {
+    "klo 11.05 - 11.45": "FY02.2 JLA ,  KE05.2 TPE ,  vKE5.2 TPE, KU01.4 KPÄ ,  vKU1.4 KPÄ ,  EAB33.1 JAH",
+    "klo 11.30 - 12.10": "ENA03.1 MLN ,  ENA06.2 AP, ENA08.2 MPA ,  vEA8.2 MPA ,  RUB16.1 MMA ,  RUA08.1 MMA ,  MAA09.2 JPI",
+    "klo 11.55 - 12.35": "SAB21.1 HSU ,  SAB33.1 HSU ,  MAA04.3 KNY, BI02.4 KSI ,  vBI3.4 KSI ,  BI04.3 PSU ,  vBI4.3 PSU",
+    "klo 12.20 - 13.00": "ÄI02.6 MLE ,  ÄI06.2 MMO, vYH2.6 HPA ,  YH02.6 HPA ,  HI02.3 UKO ,  vHI3.3 UKO"
+  }
+}

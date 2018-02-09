@@ -1,10 +1,13 @@
 //Requirements
 import Discord from 'discord.js';
 import config from './config.json';
-import {getMenu, SetCWeekMenuURL} from './Functions.js';
+import {getMenu, SetCWeekMenuURL, getEatingTime} from './Functions.js';
 import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
+import data from '../json/timetable.json';
+import specialData from '../json/poikkeusTimetable.json';
+import mongoose from 'mongoose';
 
 // Needed for async to work
 require("babel-core/register");
@@ -58,6 +61,18 @@ bot.on('message', async (message) => {
 				let result = await SetCWeekMenuURL(config.restaurantID, day);
 				await getMenu(result, day, message.channel);
 				break;
+
+			case 'time':
+				let atmClass = args[1]
+				let special = false
+				if(args[2] !== undefined && args[2] === "poikkeus")
+					special = true
+				let time = ""
+				if(special)
+					time = getEatingTime(atmClass, specialData)
+				else
+					time = getEatingTime(atmClass, data)
+				message.channel.send(time)
 		}
 	}
 });
