@@ -113,12 +113,34 @@ const getEatingTime = ( atmClass, data ) => {
 
 const toHoliday = () => {
 	let date1 = new Date();
-	let date2 = new Date("2018-06-02T12:00:00+02:00");
-
-	return () => {
-		let timeDiff = Math.abs(date2.getTime() - date1.getTime());
-		let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-		return diffDays-1
+	let kesa = new Date("2018-06-02T12:00:00+02:00");
+	let vappu = new Date("2018-04-30T12:00:00+02:00");
+	let helatorstai = new Date("2018-05-10T12:00:00+02:00");
+	let timeDiff = 0;
+	let diffDays = 0;
+	return (loma) => {
+		if(loma) {
+			switch (loma) {
+				case 'vappu':
+					timeDiff = Math.abs(vappu.getTime() - date1.getTime());
+					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+					return (diffDays-1) + " vappuun"
+					break;
+				case 'helatorstai':
+					timeDiff = Math.abs(helatorstai.getTime() - date1.getTime());
+					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+					return (diffDays-1) + " helatorstaihin"
+					break;
+				default:
+					timeDiff = Math.abs(kesa.getTime() - date1.getTime());
+					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+					return (diffDays-1) + " kesälomaan"
+			}
+		} else {
+			timeDiff = Math.abs(kesa.getTime() - date1.getTime());
+			diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+			return (diffDays-1) + " kesälomaan"
+		}
 	}
 }
 

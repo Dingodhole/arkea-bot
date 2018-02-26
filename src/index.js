@@ -64,7 +64,10 @@ bot.on('message', async (message) => {
 				break;
 
 			case 'till':
-				message.channel.send(holiday())
+				if(args[1])
+					message.channel.send(holiday(args[1]))
+				else
+					message.channel.send(holiday())
 				break;
 
 			case 'time':
