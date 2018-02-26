@@ -26,7 +26,6 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 	//Vegetarian
 	let SecondMeal = cut[1].Name + "\n";
 
-
 	//Send embbed message
 	channel.send({
 		embed: {
@@ -34,7 +33,7 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 			"timestamp": new Date(),
 			"footer": {
 				"icon_url": "https://pbs.twimg.com/profile_images/441542471760097280/9sDmsLIm_400x400.jpeg",
-				"text": "© N Production. Hosted by Gaz"
+				"text": "© N Production. Hosted by Gaz, " + toHoliday()()
 			},
 			"fields": [
 				{
@@ -112,5 +111,16 @@ const getEatingTime = ( atmClass, data ) => {
 	return "Can't find that class for that day"
 }
 
-// Export both functions
-export {getMenu, SetCWeekMenuURL, getEatingTime}
+const toHoliday = () => {
+	let date1 = new Date();
+	let date2 = new Date("2018-06-02T12:00:00+02:00");
+
+	return () => {
+		let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		return diffDays-1
+	}
+}
+
+// Export all functions
+export {getMenu, SetCWeekMenuURL, getEatingTime, toHoliday}

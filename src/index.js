@@ -1,7 +1,7 @@
 //Requirements
 import Discord from 'discord.js';
 import config from './config.json';
-import {getMenu, SetCWeekMenuURL, getEatingTime} from './Functions.js';
+import {getMenu, SetCWeekMenuURL, getEatingTime, toHoliday} from './Functions.js';
 import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
@@ -14,6 +14,7 @@ require("babel-core/register");
 require("babel-polyfill");
 
 const bot = new Discord.Client();
+const holiday = toHoliday()
 
 bot.login(config.token)
 .catch((e) => {
@@ -60,6 +61,10 @@ bot.on('message', async (message) => {
 				let day = ConvertToISO(args[1]);
 				let result = await SetCWeekMenuURL(config.restaurantID, day);
 				await getMenu(result, day, message.channel);
+				break;
+
+			case 'till':
+				message.channel.send(holiday())
 				break;
 
 			case 'time':
