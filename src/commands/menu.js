@@ -1,8 +1,8 @@
 import config from '../../config/config.json'
-import {getMenu, SetCWeekMenuURL} from '../functions';
+import { getMenu, SetCWeekMenuURL } from '../functions';
 
 const cmd = async (id = config.restaurantID, day = new Date()) => {
-    let result = await SetCWeekMenuURL(id, day);
+  let result = await SetCWeekMenuURL(id, day);
 	await getMenu(result, day, message.channel);
 }
 
