@@ -16,10 +16,10 @@ const cmd = () => {
 * @prop {string} usage - How to use the command. <cmd_name> (<params>)
 */
 cmd.info = {
-    name: "",
-    category: "",
-    description: "",
-    usage: ""
+  name: "",
+  category: "",
+  description: "",
+  usage: ""
 }
 
 /**
@@ -30,10 +30,10 @@ cmd.info = {
 * @prop {string} permLevel - Set command permissions level
 */
 cmd.conf = {
-    enabled: false,
-    guildOnly: false,
-    aliases: [],
-    permLevel: ""
+  enabled: false,
+  guildOnly: false,
+  aliases: [],
+  permLevel: ""
 }
 
 export default cmd
