@@ -1,7 +1,7 @@
 //Requirements
 import Discord from 'discord.js';
 import config from './config.json';
-import {getMenu, SetCWeekMenuURL, getEatingTime, toHoliday} from './Functions.js';
+import {getMenu, SetCWeekMenuURL, getEatingTime, toHoliday} from './functions';
 import {returnThisDay, ConvertToISO, saveMessage} from './Utility.js';
 import responses from './responses.json';
 import schedule from 'node-schedule';
