@@ -113,28 +113,48 @@ const getEatingTime = ( atmClass, data ) => {
 
 const toHoliday = () => {
 	let date1 = new Date();
-	let kesa = new Date("2018-06-02T12:00:00+02:00");
-	let vappu = new Date("2018-04-30T12:00:00+02:00");
-	let helatorstai = new Date("2018-05-10T12:00:00+02:00");
+	let syysloma = new Date("2018-10-15T12:00:00+02:00");
+	let joululoma = new Date("2018-12-23T12:00:00+02:00");
+	let talviloma = new Date("2019-02-18T12:00:00+02:00");
+	let kesaloma = new Date("2019-06-02T12:00:00+02:00");
 	let timeDiff = 0;
 	let diffDays = 0;
 	return (loma) => {
 		if(loma) {
 			switch (loma) {
-				case 'vappu':
-					timeDiff = Math.abs(vappu.getTime() - date1.getTime());
+				case 'joululoma':
+					timeDiff = Math.abs(joululoma.getTime() - date1.getTime());
 					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-					return (diffDays-1) + " vappuun"
+					return (diffDays-1) + " päivää joululomaan"
 					break;
-				case 'helatorstai':
-					timeDiff = Math.abs(helatorstai.getTime() - date1.getTime());
+				case 'talviloma':
+					timeDiff = Math.abs(talviloma.getTime() - date1.getTime());
 					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-					return (diffDays-1) + " helatorstaihin"
+					return (diffDays-1) + " päivää talvilomaan"
+					break;
+				case 'kesäloma':
+					timeDiff = Math.abs(kesaloma.getTime() - date1.getTime());
+					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+					return (diffDays-1) + " päivää kesälomaan"
 					break;
 				default:
-					timeDiff = Math.abs(kesa.getTime() - date1.getTime());
-					diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-					return (diffDays-1) + " kesälomaan"
+					if(syysloma.getTime() - date1.getTime() > 0) {
+						timeDiff = Math.abs(syysloma.getTime() - date1.getTime());
+						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+						return (diffDays-1) + "päivää syyslomaan"
+					} else if(joululoma.getTime() - date1.getTime() > 0) {
+						timeDiff = Math.abs(joululoma.getTime() - date1.getTime());
+						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+						return (diffDays-1) + " päivää joululomaan"
+					} else if(talviloma.getTime() - date1.getTime() > 0) {
+						timeDiff = Math.abs(talviloma.getTime() - date1.getTime());
+						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+						return (diffDays-1) + " päivää talvilomaan"
+					} else {
+						timeDiff = Math.abs(kesaloma.getTime() - date1.getTime());
+						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+						return (diffDays-1) + " päivää kesälomaan"
+					}
 			}
 		} else {
 			timeDiff = Math.abs(kesa.getTime() - date1.getTime());
