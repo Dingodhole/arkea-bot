@@ -14,7 +14,6 @@ require("babel-core/register");
 require("babel-polyfill");
 
 const bot = new Discord.Client();
-const holiday = toHoliday()
 
 bot.login(config.token)
 .catch((e) => {
@@ -65,9 +64,9 @@ bot.on('message', async (message) => {
 
 			case 'till':
 				if(args[1])
-					message.channel.send(holiday(args[1]))
+					message.channel.send(toHoliday()(args[1]))
 				else
-					message.channel.send(holiday())
+					message.channel.send(toHoliday())
 				break;
 
 			case 'time':
