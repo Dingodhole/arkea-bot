@@ -56,4 +56,4 @@ pdfParser.on("pdfParser_dataReady", pdfData => {
 	console.log("Done");
 });
 
-pdfParser.loadPDF("./times.pdf");
+pdfParser.loadPDF("./times2.pdf");
