@@ -157,7 +157,7 @@ const toHoliday = () => {
 					}
 			}
 		} else {
-			timeDiff = Math.abs(kesa.getTime() - date1.getTime());
+			timeDiff = Math.abs(kesaloma.getTime() - date1.getTime());
 			diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 			return (diffDays-1) + " kesälomaan"
 		}
