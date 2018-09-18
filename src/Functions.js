@@ -21,7 +21,7 @@ async function getMenu(UrlJSON, day, channel, ...other) {
 	}
 
 	//Main meal
-	let MainMeal = cut[0].Name + "\n";
+	let MainMeal = cut[0].Name.replace('Uunimakkara', 'UUUNIMAKKAARAAAAOUUUUYHJEAAAAHBOYYYYYYY') + "\n";
 
 	//Vegetarian
 	let SecondMeal = cut[1].Name + "\n";
