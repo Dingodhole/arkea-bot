@@ -141,7 +141,7 @@ const toHoliday = () => {
 					if(syysloma.getTime() - date1.getTime() > 0) {
 						timeDiff = Math.abs(syysloma.getTime() - date1.getTime());
 						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-						return (diffDays-1) + "päivää syyslomaan"
+						return (diffDays-1) + " päivää syyslomaan"
 					} else if(joululoma.getTime() - date1.getTime() > 0) {
 						timeDiff = Math.abs(joululoma.getTime() - date1.getTime());
 						diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
